@@ -142,8 +142,8 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-exported/*
-!exported/.gitkeep
+public/exported/*
+!public/exported/.gitkeep
 ffprobe.exe
 ffplay.exe
 ffmpeg.exe

@@ -1,19 +1,52 @@
-import prompts from 'prompts';
+import express from 'express';
+import dotenvFlow from 'dotenv-flow';
+import bodyParser from 'body-parser';
 import generate from './generator.js';
 
-(async () => {
-	const response = await prompts({
-		type: 'text',
-		name: 'query',
-		message: 'Music Generation Prompt',
-	});
+dotenvFlow.config();
 
-	if (!response.query) {
-		console.log('No query provided');
-		return;
+const app = express();
+const port = process.env.PORT;
+const jsonParser = bodyParser.json({
+	limit: 1024 * 1024 * 1024,
+	type: 'application/json',
+});
+
+app.use(express.static('./public'));
+app.set('views', './views');
+app.set('view engine', 'ejs');
+app.use(jsonParser);
+app.get('/', (_req, res) => {
+	res.render('index');
+});
+
+app.post('/generate', (req, res) => {
+	try {
+		const { text } = req.body;
+		if (!text) {
+			throw new Error('No text provided');
+		}
+		console.log(`Generating music: ${text}\n`);
+
+		generate(text)
+			.then(() => {
+				console.log('Generated music.\n');
+				res.status(200).json({ success: true, path: '/exported/output.wav' });
+			})
+			.catch((error) => {
+				throw new Error(error);
+			});
+	} catch (error) {
+		res.status(400).json({ success: false, message: error.message });
 	}
 
-	generate(response.query).catch((error) => {
-		console.error('Error during query:', error);
+	return true;
+});
+
+async function main() {
+	app.listen(port, () => {
+		console.log(`Server Running on port http://localhost:${port}`);
 	});
-})();
+}
+
+main();

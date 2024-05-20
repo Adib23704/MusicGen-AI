@@ -30,10 +30,10 @@ async function generate(text) {
 	}
 
 	const buffer = await response.arrayBuffer();
-	const outputPath = './exported/output.flac';
+	const outputPath = './public/exported/output.flac';
 	fs.writeFileSync(outputPath, Buffer.from(buffer));
 
-	const wavPath = './exported/output.wav';
+	const wavPath = './public/exported/output.wav';
 	ffmpeg(outputPath)
 		.toFormat('wav')
 		.on('end', () => {
