@@ -28,6 +28,10 @@ module.exports = {
 		'import/extensions': ['error', 'always'],
 		indent: ['error', 'tab'],
 		'no-tabs': ['error', { allowIndentationTabs: true }],
+<<<<<<< HEAD
 		'no-dangling-underscores': 'on'
+=======
+		'no-dangling-underscores': 'off',
+>>>>>>> c6296c1d2129e91440eb0b3ade585d70d1486207
 	},
 };
