@@ -20,7 +20,7 @@ app.get('/', (_req, res) => {
 	res.render('index');
 });
 
-app.post('/generate', (req, res) => {
+app.post('/generate', async (req, res) => {
 	try {
 		const { text } = req.body;
 		if (!text) {
@@ -28,14 +28,12 @@ app.post('/generate', (req, res) => {
 		}
 		console.log(`Generating music: ${text}\n`);
 
-		generate(text)
-			.then(() => {
-				console.log('Generated music.\n');
-				res.status(200).json({ success: true, path: '/exported/output.wav' });
-			})
-			.catch((error) => {
-				throw new Error(error);
-			});
+		try {
+			const timestamp = await generate(text);
+			res.status(200).json({ success: true, path: `/exported/${timestamp}.wav` });
+		} catch (error) {
+			throw new Error(error);
+		}
 	} catch (error) {
 		res.status(400).json({ success: false, message: error.message });
 	}

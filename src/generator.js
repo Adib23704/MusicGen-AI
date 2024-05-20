@@ -29,21 +29,29 @@ async function generate(text) {
 		throw new Error(`Error: ${response.status} - ${error}`);
 	}
 
+	const timestamp = Date.now();
+
 	const buffer = await response.arrayBuffer();
-	const outputPath = './public/exported/output.flac';
+	const outputPath = `./public/exported/${timestamp}.flac`;
 	fs.writeFileSync(outputPath, Buffer.from(buffer));
 
-	const wavPath = './public/exported/output.wav';
-	ffmpeg(outputPath)
-		.toFormat('wav')
-		.on('end', () => {
-			console.log(`Music file saved to ${wavPath}`);
-			fs.rmSync(outputPath);
-		})
-		.on('error', (err) => {
-			console.error('Error during conversion:', err);
-		})
-		.save(wavPath);
+	const wavPath = `./public/exported/${timestamp}.wav`;
+	await new Promise((resolve, reject) => {
+		ffmpeg(outputPath)
+			.toFormat('wav')
+			.on('end', () => {
+				console.log(`Music file saved to ${wavPath}`);
+				fs.rmSync(outputPath);
+				resolve(timestamp);
+			})
+			.on('error', (err) => {
+				console.error('Error during conversion:', err);
+				reject(err);
+			})
+			.save(wavPath);
+	});
+
+	return timestamp;
 }
 
 export default generate;
