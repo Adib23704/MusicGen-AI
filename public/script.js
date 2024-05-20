@@ -42,6 +42,6 @@ document.getElementById('genButton').addEventListener('click', async (event) => 
 });
 
 document.getElementById('exButton').addEventListener('click', () => {
-	const exampleText = 'A funky and catchy beat for gaming youtube video intro.';
+	const exampleText = 'A funky and catchy beat for gaming youtube video intro';
 	document.getElementById('userText').value = exampleText;
 });
