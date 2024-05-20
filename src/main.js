@@ -30,7 +30,10 @@ app.post('/generate', async (req, res) => {
 
 		try {
 			const timestamp = await generate(text);
-			res.status(200).json({ success: true, path: `/exported/${timestamp}.wav` });
+			res.status(200).json({
+				success: true,
+				path: `/exported/${timestamp}.wav`,
+			});
 		} catch (error) {
 			throw new Error(error);
 		}
