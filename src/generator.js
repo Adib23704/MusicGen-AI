@@ -10,13 +10,15 @@ async function generate(text) {
 		inputs: text,
 		options: {
 			wait_for_model: true,
-			use_cache: true
-		}
+			use_cache: true,
+		},
 	};
 	const response = await fetch(
 		'https://api-inference.huggingface.co/models/facebook/musicgen-small',
 		{
-			headers: { Authorization: `Bearer ${process.env.HUGGINGFACE_TOKEN}` },
+			headers: {
+				Authorization: `Bearer ${process.env.HUGGINGFACE_TOKEN}`,
+			},
 			method: 'POST',
 			body: JSON.stringify(data),
 		},
@@ -44,4 +46,4 @@ async function generate(text) {
 		.save(wavPath);
 }
 
-export { generate };
+export default generate;

@@ -20,7 +20,6 @@
 	},
 	"homepage": "https://github.com/Adib23704/MusicGen-AI#readme",
 	"dependencies": {
-<<<<<<< HEAD
 		"@huggingface/inference": "^2.7.0",
 		"dotenv-flow": "^4.1.0",
 		"ejs": "^3.1.10",
@@ -29,10 +28,6 @@
 		"light-audio-converter": "^1.0.6",
 		"node-fetch": "^3.3.2",
 		"prompts": "^2.4.2"
-=======
-		"@huggingface/inference": "^2.6.4",
-		"dotenv-flow": "^4.1.0"
->>>>>>> c6296c1d2129e91440eb0b3ade585d70d1486207
 	},
 	"type": "module",
 	"devDependencies": {
@@ -50,8 +45,4 @@
 		"bracketSpacing": true,
 		"singleQuote": true
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c6296c1d2129e91440eb0b3ade585d70d1486207

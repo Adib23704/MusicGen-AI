@@ -1,11 +1,11 @@
 import prompts from 'prompts';
-import { generate } from './generator.js';
+import generate from './generator.js';
 
 (async () => {
 	const response = await prompts({
 		type: 'text',
 		name: 'query',
-		message: 'Music Generation Prompt'
+		message: 'Music Generation Prompt',
 	});
 
 	if (!response.query) {
@@ -13,12 +13,7 @@ import { generate } from './generator.js';
 		return;
 	}
 
-	generate(response.query)
-		.then(() => {
-			return;
-		})
-		.catch((error) => {
-			console.error('Error during query:', error);
-		});
+	generate(response.query).catch((error) => {
+		console.error('Error during query:', error);
+	});
 })();
-
